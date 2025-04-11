@@ -8,10 +8,18 @@ export default function App() {
 
     return (
         <Routes>
-            <Route path="/" element={<Navigate to={token ? "/inbox" : "/login"} />} />
-            <Route path="/login" element={<Navigate to={token ? "/inbox" : "/login"} />} />
+            <Route path="/" element={<Navigate to={token ? "/mail/inbox" : "/login"} />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route
                 path="/inbox"
+                element={
+                    <ProtectedRoute>
+                        <InboxPage />
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/mail/:folder"
                 element={
                     <ProtectedRoute>
                         <InboxPage />

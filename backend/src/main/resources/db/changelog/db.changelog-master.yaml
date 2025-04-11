@@ -13,3 +13,10 @@ databaseChangeLog:
         - sqlFile:
             path: sql/V2__create_emails_table.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: 3
+      author: oleg
+      changes:
+        - sqlFile:
+            path: sql/V3__add_send_inbox_time_columns.sql
+            relativeToChangelogFile: true

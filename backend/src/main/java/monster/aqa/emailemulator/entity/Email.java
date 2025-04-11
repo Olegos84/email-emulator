@@ -38,4 +38,10 @@ public class Email {
 
     @Enumerated(EnumType.STRING)
     private EmailFolder folder;
+
+    @Column(name = "send_time")
+    private LocalDateTime sendTime;
+
+    @Column(name = "inbox_time")
+    private LocalDateTime inboxTime;
 }

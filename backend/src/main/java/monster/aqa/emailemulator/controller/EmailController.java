@@ -9,14 +9,16 @@ import monster.aqa.emailemulator.security.JwtService;
 import monster.aqa.emailemulator.service.EmailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/emails")
+@RequestMapping("/emails")
 @RequiredArgsConstructor
 public class EmailController {
     private final EmailService emailService;
@@ -54,4 +56,25 @@ public class EmailController {
         User user = getCurrentUser(httpRequest);
         return ResponseEntity.ok(emailService.getSent(user));
     }
+
+    @GetMapping("/trash")
+    public ResponseEntity<?> getTrash(HttpServletRequest httpRequest) {
+        User user = getCurrentUser(httpRequest);
+        return ResponseEntity.ok(emailService.getTrash(user));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteEmail(@PathVariable Long id, HttpServletRequest request) {
+        User user = getCurrentUser(request);
+        emailService.markAsDeleted(user, id);
+        return ResponseEntity.ok("Email marked as deleted");
+    }
+
+    @DeleteMapping("/trash")
+    public ResponseEntity<?> clearTrash(HttpServletRequest request) {
+        User user = getCurrentUser(request);
+        emailService.deleteAllFromTrash(user);
+        return ResponseEntity.ok("Trash cleared");
+    }
+
 }

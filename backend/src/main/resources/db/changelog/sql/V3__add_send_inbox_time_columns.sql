@@ -1,0 +1,5 @@
+ALTER TABLE emails
+    ADD COLUMN send_time TIMESTAMP;
+
+ALTER TABLE emails
+    ADD COLUMN inbox_time TIMESTAMP;
