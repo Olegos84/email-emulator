@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: oleg ulizko
+      changes:
+        - sqlFile:
+            path: sql/V1__create_users_table.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 2
+      author: oleg
+      changes:
+        - sqlFile:
+            path: sql/V2__create_emails_table.sql
+            relativeToChangelogFile: true
